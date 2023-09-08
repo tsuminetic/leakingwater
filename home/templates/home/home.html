@@ -1,0 +1,102 @@
+{% extends "home/base.html" %}
+{% block content %}
+    <style>
+
+        .profile-card {
+            width: 200px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #354d51ff; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .row.no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+
+        .col-md-4.mb-4 {
+            padding: 0.5rem;
+        }
+    </style>
+    <div class="container">
+        <div class="row no-gutters">
+            {% for profile in profiles_data %}
+            <div class="col-md-2 mb-5">
+                <style>
+
+                    .profile-link {
+                        text-decoration: none; 
+                        color: inherit; 
+                    }
+                    .card-title {
+                        max-width: 200px; 
+                        white-space: nowrap; 
+                        overflow: hidden; 
+                        text-overflow: ellipsis; 
+                        border: 0px solid #ccc; 
+                    }
+                </style>
+                <a href="{% url 'profile_detail' profile.cleaned_username %}" class="profile-link">
+                <div class="profile-card">
+                    <img src="{{ profile.profile_pic_url }}" class="card-img-top profile-pic rounded-circle" alt="Profile Picture">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: white;"><b>{{ profile.username }}</b></h5>
+                        <br>
+                        <p class="card-text" style="color: white;">Images: {{ profile.images_count }}</p>
+                        <p class="card-text" style="color: white;">Videos: {{ profile.videos_count }}</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        
+
+
+        <div class="d-flex justify-content-center custom-pagination" >
+            <ul class="pagination" >
+                {% if profiles_data.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ profiles_data.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                <li class="page-item disabled">
+                    <span class="page-link">Page {{ profiles_data.number }} of {{ profiles_data.paginator.num_pages }}</span>
+                </li>
+                
+                {% if profiles_data.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ profiles_data.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ profiles_data.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

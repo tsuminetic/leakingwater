@@ -1,0 +1,62 @@
+{% extends "home/base.html" %}
+{% block content %}
+    <style>
+
+        .profile-card {
+            width: 1000px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solidrgb(88, 88, 88)c;
+            border-radius: 10px;
+            background-color: #354d51ff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        h1{
+            width: 1000px;
+            text-align: start;
+            margin: start;
+            padding: 10px;
+
+        }
+        
+    </style>
+    <div class="container">
+        <h1 style="color: white;">Onlyfans leak <b>{{profile.cleaned_username}}</b></h1>
+        <div class="row no-gutters">
+            <div class="col-md-2 mb-5">
+                <style>
+
+                    .profile-link {
+                        text-decoration: none; 
+                        color: inherit; 
+                    }
+                    .card-title {
+                        
+                        font-size: 40px;
+                        border: 0px solid #ccc; 
+                    }
+                </style>
+                <a href="{% url 'profile_detail' profile.cleaned_username %}" class="profile-link">
+                <div class="profile-card">
+                    <img src="{{ profile.profile_pic_url }}" class="card-img-top profile-pic rounded-circle" alt="Profile Picture">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: white;"><b>{{ profile.username }}</b></h5>
+                        <br>
+                        <a href="#" rel="nofollow" class="btn btn-primary btn-lg text-uppercase my-3 " style="color: #fff;background-color: #4ed907;
+                        border-color: #4ed907;box-shadow: 0px 3px 10px #37ff3d;font-size: 20px;">
+                        View all {{profile.images_count}} images and {{profile.videos_count}} videos for free</a>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
